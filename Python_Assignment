@@ -1,0 +1,56 @@
+class FlightTable:
+    def __init__(self):
+        self.data = []
+        
+    def add_entry(self, p_id, process, start_time, priority):
+        self.data.append({'P_ID': p_id, 'Process': process, 'Start Time': start_time, 'Priority': priority})
+        
+    def display_table(self):
+        print("{:<5} {:<10} {:<15} {}".format('P_ID', 'Process', 'Start Time', 'Priority'))
+        print("=" * 40)
+        for entry in self.data:
+            print("{:<5} {:<10} {:<15} {}".format(entry['P_ID'], entry['Process'], entry['Start Time'], entry['Priority']))
+    
+    def sort_by_p_id(self):
+        self.data.sort(key=lambda entry: entry['P_ID'])
+        
+    def sort_by_start_time(self):
+        self.data.sort(key=lambda entry: entry['Start Time'])
+        
+    def sort_by_priority(self):
+        priority_order = {'Low': 0, 'MID': 1, 'High': 2}
+        self.data.sort(key=lambda entry: priority_order[entry['Priority']])
+
+if __name__ == "__main__":
+    flight_table = FlightTable()
+    
+    flight_table.add_entry('P1', 'VSCode', 100, 'MID')
+    flight_table.add_entry('P23', 'Eclipse', 234, 'MID')
+    flight_table.add_entry('P93', 'Chrome', 189, 'High')
+    flight_table.add_entry('P42', 'JDK', 9, 'High')
+    flight_table.add_entry('P9', 'CMD', 7, 'High')
+    flight_table.add_entry('P87', 'NotePad', 23, 'Low')
+    
+    while True:
+        print("\nSelect Sorting Parameter:")
+        print("1. Sort by P_ID")
+        print("2. Sort by Start Time")
+        print("3. Sort by Priority")
+        print("0. Exit")
+        
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            flight_table.sort_by_p_id()
+        elif choice == '2':
+            flight_table.sort_by_start_time()
+        elif choice == '3':
+            flight_table.sort_by_priority()
+        elif choice == '0':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please select again.")
+            continue
+        
+        flight_table.display_table()
